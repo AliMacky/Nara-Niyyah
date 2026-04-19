@@ -1,0 +1,222 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark, [data-theme="dark"]) *);
+
+/* ==========================================================================
+   Nara Design Tokens
+   Source of truth: DESIGN_SYSTEM.md
+   ========================================================================== */
+
+:root {
+  /* --- Neutrals: paper & ink --- */
+  --paper-50: #FBF8F3;
+  --paper-100: #F5F0E6;
+  --paper-200: #E9E1D2;
+  --paper-300: #CFC4AE;
+
+  --ink-900: #1C1A17;
+  --ink-700: #3D3832;
+  --ink-500: #6B6458;
+  --ink-300: #A39B8B;
+
+  /* --- Accent: clay --- */
+  --clay-600: #B54E2C;
+  --clay-500: #C96846;
+  --clay-400: #D88765;
+  --clay-100: #F4DDD1;
+
+  /* --- Sentiment spectrum --- */
+  --sentiment-neg-strong: #9B3A52;
+  --sentiment-neg-soft: #C88597;
+  --sentiment-neutral: #B8A98E;
+  --sentiment-pos-soft: #6B9B9E;
+  --sentiment-pos-strong: #1F5E63;
+
+  /* --- Motion --- */
+  --ease-paper: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-linger: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* --- shadcn mappings (Nara-themed) --- */
+  --background: var(--paper-50);
+  --foreground: var(--ink-900);
+  --card: var(--paper-100);
+  --card-foreground: var(--ink-900);
+  --popover: var(--paper-100);
+  --popover-foreground: var(--ink-900);
+  --primary: var(--clay-600);
+  --primary-foreground: var(--paper-50);
+  --secondary: var(--paper-200);
+  --secondary-foreground: var(--ink-900);
+  --muted: var(--paper-200);
+  --muted-foreground: var(--ink-500);
+  --accent: var(--clay-100);
+  --accent-foreground: var(--ink-900);
+  --destructive: var(--sentiment-neg-strong);
+  --border: var(--paper-300);
+  --input: var(--paper-300);
+  --ring: var(--clay-500);
+  --chart-1: var(--clay-600);
+  --chart-2: var(--sentiment-pos-strong);
+  --chart-3: var(--sentiment-neutral);
+  --chart-4: var(--sentiment-neg-soft);
+  --chart-5: var(--ink-500);
+  --radius: 0.375rem;
+  --sidebar: var(--paper-100);
+  --sidebar-foreground: var(--ink-900);
+  --sidebar-primary: var(--clay-600);
+  --sidebar-primary-foreground: var(--paper-50);
+  --sidebar-accent: var(--paper-200);
+  --sidebar-accent-foreground: var(--ink-900);
+  --sidebar-border: var(--paper-300);
+  --sidebar-ring: var(--clay-500);
+}
+
+/* --- Dark mode ---
+   Ground: warm near-black (#1B1915), not gray.
+   Text: warm off-white (#EEE8DC).
+   Clay shifts to --clay-400 for contrast.
+   Sentiment brightens slightly. */
+.dark,
+[data-theme="dark"] {
+  --paper-50: #1B1915;
+  --paper-100: #252219;
+  --paper-200: #33302A;
+  --paper-300: #4A453B;
+
+  --ink-900: #EEE8DC;
+  --ink-700: #C9C1B3;
+  --ink-500: #9A9184;
+  --ink-300: #6B6458;
+
+  --clay-600: #D88765;
+  --clay-500: #E09A7D;
+  --clay-400: #E8B49E;
+  --clay-100: #3A2A22;
+
+  --sentiment-neg-strong: #C46279;
+  --sentiment-neg-soft: #D89FAD;
+  --sentiment-neutral: #C4B59F;
+  --sentiment-pos-soft: #82B3B6;
+  --sentiment-pos-strong: #3A8B90;
+}
+
+/* ==========================================================================
+   Tailwind v4 Theme — maps CSS vars to utility classes
+   Usage: bg-nara-paper-50, text-nara-ink-900, etc.
+   ========================================================================== */
+
+@theme inline {
+  /* Fonts */
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  /* shadcn color mappings (keep for component compatibility) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Nara color namespace */
+  --color-nara-paper-50: var(--paper-50);
+  --color-nara-paper-100: var(--paper-100);
+  --color-nara-paper-200: var(--paper-200);
+  --color-nara-paper-300: var(--paper-300);
+
+  --color-nara-ink-900: var(--ink-900);
+  --color-nara-ink-700: var(--ink-700);
+  --color-nara-ink-500: var(--ink-500);
+  --color-nara-ink-300: var(--ink-300);
+
+  --color-nara-clay-600: var(--clay-600);
+  --color-nara-clay-500: var(--clay-500);
+  --color-nara-clay-400: var(--clay-400);
+  --color-nara-clay-100: var(--clay-100);
+
+  --color-nara-sentiment-neg-strong: var(--sentiment-neg-strong);
+  --color-nara-sentiment-neg-soft: var(--sentiment-neg-soft);
+  --color-nara-sentiment-neutral: var(--sentiment-neutral);
+  --color-nara-sentiment-pos-soft: var(--sentiment-pos-soft);
+  --color-nara-sentiment-pos-strong: var(--sentiment-pos-strong);
+
+  /* Type scale */
+  --font-size-display-xl: 4.5rem;
+  --font-size-display-xl--line-height: 4.75rem;
+  --font-size-display-lg: 3.5rem;
+  --font-size-display-lg--line-height: 3.75rem;
+  --font-size-display-md: 2.5rem;
+  --font-size-display-md--line-height: 2.75rem;
+  --font-size-display-sm: 1.75rem;
+  --font-size-display-sm--line-height: 2rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-body-lg--line-height: 1.75rem;
+  --font-size-body: 1rem;
+  --font-size-body--line-height: 1.5rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-body-sm--line-height: 1.25rem;
+  --font-size-body-xs: 0.75rem;
+  --font-size-body-xs--line-height: 1rem;
+  --font-size-mono: 0.8125rem;
+  --font-size-mono--line-height: 1.25rem;
+
+  /* Easing curves */
+  --ease-paper: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-linger: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Border radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  html {
+    @apply font-sans;
+  }
+}
